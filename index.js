@@ -9,10 +9,26 @@ const PORT = process.env.PORT || 9000;
 server.use(express.json());
 server.use(cors());
 
-server.get('/api/hello', (req, res) => {
+server.get('/api/users', (req, res) => {
   res.json({
-    message: 'api is working'
+    users: []
   });
+});
+
+server.post('/api/register', (req, res) => {
+  res.json({
+    username: req.body.username,
+    password: req.body.password
+  });
+});
+
+server.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username && password) {
+    res.json({
+      message: `Hello ${username}`
+    });
+  }
 });
 
 server.use('*', (req, res) => {
